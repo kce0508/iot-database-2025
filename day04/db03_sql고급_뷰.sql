@@ -2,9 +2,9 @@
 -- DDL CREATE로 뷰를 생성
 -- 생성과 수정을 동시에 하는게 좋다!
 CREATE OR REPLACE VIEW v_orders
-	AS
+	  AS
 SELECT o.orderid
-	 , c.custid
+	   , c.custid
      , c.name
      , b.bookid
      , b.bookname
@@ -24,7 +24,7 @@ SELECT *
 -- 4-20 주소에 '대한민국'을 포함하는 고객들로 구성된 뷰를 만들고 조회하시오.
 -- 뷰의 이름은 vw_Customer 설정합니다.
 CREATE OR REPLACE VIEW vw_Customer
-	AS
+	  AS
 SELECT *
   FROM Customer
  WHERE address LIKE '%대한민국%';

@@ -3,7 +3,7 @@
 		  이때 이름과 성을 연결하여 Full Name이라는 별칭으로 출력하시오. (107행)
 */
 select employee_id
-	 , concat(first_name, ' ', last_name) as 'full name'
+	   , concat(first_name, ' ', last_name) as 'full name'
      , salary
      , job_id
      , hire_date
@@ -14,7 +14,7 @@ select employee_id
 			급여에 $100 보너스를 추가해서 Increased Salary 별칭으로 출력하시오.(107행)
 */
 select concat(first_name, ' ', last_name) as 'Name'
-	 , job_id as 'Job'
+	   , job_id as 'Job'
      , salary as 'Salary'
      , (salary * 12) + 100 as 'Increased Ann_salary'
      , (salary + 100) * 12 as 'Incerased Salary'
@@ -55,7 +55,7 @@ select date_add(sysdate(), interval 9 hour) as 'sysdate()';
 desc employees;
 
 select last_name as 'name'
-	 , employee_id
+	   , employee_id
      , hire_date
   from employees
  where hire_date between '1995-05-20' and '1996-05-20'	-- date타입은 문자열처럼 조건연산을 해도 됨
@@ -72,7 +72,7 @@ select concat(first_name, ' ', last_name, ' is a ', upper(job_id)) as 'Employee 
 /* 문제3 - 사원의 성과 이름을 Name으로 별칭, 입사일, 입사한 요일을 출력하시오. 이때 주(week) 시작인 일요일부터 출력되도록 정렬(107행)
 */
 select concat(first_name, ' ', last_name) as 'name'
-	 , hire_date
+	   , hire_date
      , date_format(hire_date, '%W') as 'Day of the week'
   from employees
  order by date_format(hire_date, '%w') asc, hire_date;
@@ -83,7 +83,7 @@ select concat(first_name, ' ', last_name) as 'name'
             단, 부서에 소속되지 않는 사원은 정보에서 제외, 출력시 머리글은 아래처럼 별칭으로 처리(11개행)
 */
 select department_id
-	 , concat('$', format(round(sum(salary), 0), 0)) as 'Sum Salary'
+	   , concat('$', format(round(sum(salary), 0), 0)) as 'Sum Salary'
      , concat('$', format(round(avg(salary), 1), 1)) as 'Avg Salary'	-- round(컬럼, 1), 소수점 1자리에서 반올림, format(값, 1) 소수점표현 및 1000단위, 표시
      , concat('$', format(round(max(salary), 0), 0)) as 'Max Salary'
      , concat('$', format(round(min(salary), 0), 0)) as 'Min Salary'
@@ -102,7 +102,7 @@ select *
 	on d.department_id = e.department_id;  -- ANSI Standard SQL 쿼리
 
 select concat(e.first_name, ' ', e.last_name) as 'name'
-	 , e.job_id
+  	 , e.job_id
      , d.department_name
      , e.hire_date
      , e.salary
@@ -112,6 +112,7 @@ select concat(e.first_name, ' ', e.last_name) as 'name'
  where d.department_id = e.department_id
  order by e.salary desc;
   
+-- 서브쿼리 테스트
 select *
   from job_grades
  where 6000 between lowset_sal and highest_sal;
@@ -120,7 +121,7 @@ select *
 			예를 보고 출력하시오.(107개 행)
 */
 select concat(e2.first_name, ' ', e2.last_name) as 'Employee'
-	 , 'report to'
+	   , 'report to'
      , concat(e2.first_name, ' ', e2.last_name) as 'Manager'
   from employees as e1 right join employees as e2
 	on e1.employee_id = e2.manager_id;

@@ -18,7 +18,7 @@ SELECT SUM(saleprice) AS Total			-- 합계
      , AVG(saleprice) AS Average		-- 평균
      , MIN(saleprice) AS MinPrice		-- 최소
      , MAX(saleprice) AS MaxPrice		-- 최대
-     , STD(saleprice) AS StandardV		-- 표준편차
+     , STD(saleprice) AS StandardV	-- 표준편차
   FROM Orders;
   
   
@@ -27,15 +27,22 @@ SELECT SUM(saleprice) AS Total			-- 합계
 -- GROUP BY를 사용하면 반드시 집계함수 및 GROUP BY에 포한된 컬럼이 SELECT 안에 들어가 있어야 함.
 -- GROUP BY에 있는 컬럼만 SELECT 안에 사용할 수 있음. 그 외는 사용불가
 SELECT custid
-	 , COUNT(*) AS 구매도서수량	-- 함수 매개변수로 *, custid	
-	 , SUM(saleprice) AS 고객별총액
+  	 , COUNT(*) AS 구매도서수량	-- 함수 매개변수로 *, custid	
+	   , SUM(saleprice) AS 고객별총액
   FROM Orders
  GROUP BY custid; 
 
 -- 추가 : 3-19의 내용에서 고객별총액을 내림차순으로 출력하시오.
 SELECT custid
-	 , COUNT(*) AS 구매도서수량	
-	 , SUM(saleprice) AS 고객별총액
+     , COUNT(*) AS 구매도서수량
+     , SUM(saleprice) AS 고객별총액
+  FROM Orders
+ GROUP BY custid
+ ORDER BY 고객별총액 DESC;
+
+SELECT custid
+	   , COUNT(*) AS 구매도서수량	
+	   , SUM(saleprice) AS 고객별총액
   FROM Orders
  GROUP BY custid
  ORDER BY 3 DESC;
@@ -44,7 +51,7 @@ SELECT custid
 -- 단, 2권이상 구매한 고객에 대해서만 한정합니다.
 -- COUNT() 등 집계함수는 WHERE에 넣을 수 없음
 SELECT custid
-	 , COUNT(*) AS 총수량
+	   , COUNT(*) AS 총수량
   FROM Orders
  WHERE saleprice >= 8000
  GROUP BY custid
@@ -52,8 +59,8 @@ HAVING 총수량 >= 2;	-- COUNT(*)와 별명을 사용할 수 있음.
 
 -- 추가 : 고객별 구매수량과 구매총액을 출력하고, 전체를 합산하여 통계를 표시하세요.
 SELECT custid
-	 , COUNT(*) AS 구매도서수량		
-	 , SUM(saleprice) AS 고객별총액
+	   , COUNT(*) AS 구매도서수량       -- 함수 매개변수로 *, custid		
+	   , SUM(saleprice) AS 고객별총액
   FROM Orders
  GROUP BY custid
   WITH ROLLUP;
@@ -70,13 +77,6 @@ SELECT *
   FROM Customer, Orders
  WHERE Customer.custid = Orders.custid;
  
-
-
-
-
-
-
-
 -- 중복되거나 필요없는 컬럼은 제거하고 출력
 SELECT Customer.custid
      , Customer.name
@@ -92,7 +92,7 @@ SELECT c.custid
      , c.name
      , c.address
      , o.orderid
-	 , o.saleprice
+	   , o.saleprice
      , o.orderdate
   FROM Customer AS c, Orders AS o
  WHERE c.custid = o.custid;
@@ -102,7 +102,7 @@ SELECT c.custid
      , c.name
      , c.address
      , o.orderid
-	 , o.saleprice
+	   , o.saleprice
      , o.orderdate
      , b.bookname
      , b.publisher
@@ -139,24 +139,24 @@ SELECT c.name, b.bookname
  
 -- 3-26 가격이 20000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오.
 SELECT c.name
-	 , b.bookname
+	   , b.bookname
   FROM Customer AS c, Orders AS o, Book AS b 
  WHERE c.custid = o.custid
    AND b.bookid = o.bookid 	-- JOIN을 위한 조건
-   AND b.price = 20000; -- 나머지 조건들...
+   AND b.price = 20000;     -- 나머지 조건들...
    
 -- 외부조인 : 조건을 만족하지 않는(일치하지 않는) 데이터도 출력이 필요할 때 사용하는 조인   
 -- 3-27 도서를 구매하지 않은 고객을 포함해 고객의 이름과 고객이 주문한 도서의 판매가격을 구하시오.
 -- LEFT OUTER JOIN 또는 RIGHT OUTER JOIN - LEFT, RIGHT는 기준이 되는 테이블 위치
 SELECT *
   FROM Customer AS c
-  LEFT JOIN Orders AS o  -- LEFT OUTER JOIN Orders AS o
+  LEFT JOIN Orders AS o     -- LEFT OUTER JOIN Orders AS o
     ON c.custid = o.custid;
     
 -- RIHGT OUTER JOIN으로 하면??
 SELECT *
   FROM Customer AS c
-  RIGHT JOIN Orders AS o 
+  RIGHT JOIN Orders AS o    -- LEFT OUTER JOIN Orders AS o
     ON c.custid = o.custid;
 
 -- 서브쿼리(부속질의)
@@ -167,29 +167,29 @@ SELECT MAX(price)
 SELECT bookname
   FROM Book
  WHERE price = (
- SELECT MAX(price) 
-  FROM Book
- );
+                SELECT MAX(price) 
+                  FROM Book
+                );
  
 -- 3-29 도서를 구매한 적이 있는 고객의 이름을 검색하시오.
 SELECT c.name
   FROM Customer AS c
  WHERE c.custid IN (
-			SELECT DISTINCT custid FROM Orders
-				  );
+                    SELECT DISTINCT custid FROM Orders
+                        );
     
--- 3-30 대한미디어에서 출판한 도서를 구매한 고객의 이름을 나타내시오.alter
+-- 3-30 대한미디어에서 출판한 도서를 구매한 고객의 이름을 나타내시오.
 SELECT c.name
   FROM Customer AS c
  WHERE c.custid IN (
-					SELECT o.custid
-					  FROM Orders AS o
-					 WHERE o.bookid IN (
-										SELECT b.bookid
-										  FROM Book AS b
-										 WHERE b.publisher = '대한미디어'
-										)
-					);
+                    SELECT o.custid
+                      FROM Orders AS o
+                     WHERE o.bookid IN (
+                                        SELECT b.bookid
+                                          FROM Book AS b
+                                         WHERE b.publisher = '대한미디어'
+                                        )
+                    );
                     
 -- 3-30은 조인으로 변경가능(SunQuery <--> Join)
 SELECT c.name
@@ -203,12 +203,12 @@ SELECT c.name
 SELECT *
   FROM Book AS b1
  WHERE b1.price > (
-			SELECT AVG(b2.price)
-			  FROM Book AS b2
-		 	 WHERE b2.publisher = b1.publisher);
+                    SELECT AVG(b2.price)
+                      FROM Book AS b2
+                    WHERE b2.publisher = b1.publisher);
              
 SELECT AVG(b2.price)
-	 , b2.publisher
+	   , b2.publisher
   FROM Book AS b2
  WHERE b2.publisher = '대한미디어'
  GROUP BY b2.publisher;
@@ -232,7 +232,7 @@ SELECT orderdate
 SELECT *
   FROM Customer AS c
  WHERE EXISTS(
-			 SELECT *					-- o.custid로 사용하지 않아도 됨
-			   FROM Orders AS o
-			 WHERE o.custid = c.custid  -- 메인쿼리의 컬럼이 서브쿼리에 사용되고 있음
-			  );
+              SELECT *					-- o.custid로 사용하지 않아도 됨
+                FROM Orders AS o
+              WHERE o.custid = c.custid  -- 메인쿼리의 컬럼이 서브쿼리에 사용되고 있음
+                );

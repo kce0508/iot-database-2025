@@ -1,6 +1,6 @@
 # 파이썬 웹앱(Flask)
 ## pip install Flask
-from flask import Flask
+from flask import Flask, render_template, request
 import pymysql
 
 # 변수 초기화
@@ -32,7 +32,7 @@ def index():
 @app.route('/view') # http://localhost/5000/view?id=2
 def getDetail():
     bookid = request.args.get('id')
-    query = '''SELECT bookid
+    query = f'''SELECT bookid
                     , bookname
                     , publisher
                     , price 

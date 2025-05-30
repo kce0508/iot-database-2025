@@ -1,6 +1,6 @@
 -- 인덱스
 -- DDL로 인덱스 생성
--- Book 테이블의 bookname에 인덱스 ix_Book을 생성하시오.
+-- 4-24 Book 테이블의 bookname에 인덱스 ix_Book을 생성하시오.
 CREATE INDEX ix_Book ON Book(bookname);
 
 -- 4-25 Book 테이블에 publisher, price를 인덱스 ix_Book2 생성하시오.
@@ -24,7 +24,7 @@ DROP INDEX ix_Boo2k ON Book;
 
 -- SQL로 구구단 작성하기
 SELECT
-	CONCAT(b.b, '*', a.a, '=', a.a * b.b)		"2단",
+	  CONCAT(b.b, '*', a.a, '=', a.a * b.b)		"2단",
     CONCAT(c.c, '*', a.a, '=', a.a * c.c)		"3단",
     CONCAT(d.d, '*', a.a, '=', a.a * d.d)		"4단",
     CONCAT(e.e, '*', a.a, '=', a.a * e.e)		"5단",
@@ -33,8 +33,8 @@ SELECT
     CONCAT(h.h, '*', a.a, '=', a.a * h.h)		"8단",
     CONCAT(i.i, '*', a.a, '=', a.a * i.i)		"9단"
   FROM 
-	(	SELECT 1 a UNION ALL
-		SELECT 2 a UNION ALL
+	(	    SELECT 1 a UNION ALL
+		    SELECT 2 a UNION ALL
         SELECT 3 a UNION ALL
         SELECT 4 a UNION ALL
         SELECT 5 a UNION ALL
@@ -44,7 +44,7 @@ SELECT
         SELECT 9 a 
     ) a
  CROSS JOIN
-		(SELECT 2 b)	b,
+		    (SELECT 2 b)	b,
         (SELECT 3 c)	c,
         (SELECT 4 d)	d,
         (SELECT 5 e)	e,

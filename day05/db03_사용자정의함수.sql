@@ -18,3 +18,4 @@ END;
 
 -- 실행
 SELECT custid, orderid, saleprice, fnc_Interest(saleprice) AS '이익금'
+  FROM Orders;

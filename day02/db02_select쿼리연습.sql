@@ -17,16 +17,16 @@ SELECT bookid, bookname, publisher, price
 SELECT DISTINCT publisher
   FROM Book;
   
--- 3-4 : 도서 중 가격이 20000원 미만인 것을 검색
+-- 3-4 : 도서 중 가격이 20000원 미만인 것을 검색하시오.
 -- > 미만 < 초과 >= 이하 <= 이상 <> 같지않다 != 같지않다 = 같다(프로그래밍 언어와 차이)
 SELECT *
   FROM Book
  WHERE price < 20000;
  
- -- 3-5 : 가격이 10000원에서 20000원 이하인 도서를 검색하시오.alter
+ -- 3-5 : 가격이 10000원에서 20000원 이하인 도서를 검색하시오.
  SELECT *
    FROM Book
-  WHERE price >= 10000 AND price < 20000;
+  WHERE price >= 10000 AND price <= 20000;
 
  SELECT *
    FROM Book
@@ -86,7 +86,7 @@ SELECT *
   FROM Book
 -- ORDER BY bookname ASC;
 -- ORDER BY bookname;
-ORDER BY price ASC;
+ ORDER BY price ASC;
 
 -- 3-13 : 도서를 가격순으로 검색하고, 가격이 같으면 이름순으로 검색하시오.
 SELECT *

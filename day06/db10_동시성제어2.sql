@@ -1,0 +1,9 @@
+START TRANSACTION;
+
+SELECT * FROM Book;  
+
+UPDATE Book SET
+ 	   price = 30000
+ WHERE bookid = 98;
+ 
+COMMIT;

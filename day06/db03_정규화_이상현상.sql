@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS Summer;	-- 기존테이블이 존재하면 삭제
 CREATE TABLE Summer(
 	sid 	INTEGER,
 	class	VARCHAR(20),
-    price	INTEGER
+  price	INTEGER
 );
 
 -- 데이터 확인
@@ -16,7 +16,7 @@ INSERT INTO Summer VALUES (100, 'JAVA', 20000),(150, 'PYTHON', 15000), (200, 'C'
 
 -- 계절학기 듣는 학생의 학번과 수강과목
 SELECT sid
-	 , class
+	   , class
   FROM Summer;
   
 -- C 강좌 수강료
@@ -32,7 +32,7 @@ SELECT DISTINCT(class)
                   
 -- 계절학기 학생수와 수강료 총액
 SELECT COUNT(*) AS '학생수'
-	 , SUM(price) AS '수강료총액'
+	   , SUM(price) AS '수강료총액'
   FROM Summer;
 
 /* 이상현상(abnormaly) */
@@ -42,7 +42,7 @@ DELETE FROM Summer WHERE sid = 200;
 -- C강좌 수강료를 찾을 수 없다.
 SELECT price
   FROM Summer
- WHERE class LIKE '%C';
+ WHERE class LIKE '%C%';
 
 -- 삽입이상
 INSERT INTO Summer VALUES (NULL, 'C++', 25000);

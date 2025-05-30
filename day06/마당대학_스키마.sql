@@ -7,11 +7,16 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema madanguniv
 -- -----------------------------------------------------
+-- 마당대학교 모델링
+-- 
 
 -- -----------------------------------------------------
 -- Schema madanguniv
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `madanguniv` DEFAULT CHARACTER SET utf8 ;
+-- 마당대학교 모델링
+-- 
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `madanguniv` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
 USE `madanguniv` ;
 
 -- -----------------------------------------------------
@@ -22,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `madanguniv`.`Professor` (
   `name` VARCHAR(100) NOT NULL,
   `age` INT NULL,
   `rank` VARCHAR(20) NOT NULL,
-  `speciality` INT NULL,
+  `speciality` VARCHAR(40) NULL,
   PRIMARY KEY (`ssn`))
 ENGINE = InnoDB;
 

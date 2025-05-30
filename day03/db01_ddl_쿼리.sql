@@ -43,7 +43,7 @@ DROP TABLE NewBook;
 -- price는 값이 입력되지 않은 경우 기본값인 10000을 저장
 -- 최소가격은 1000원 이상으로 한다.
 CREATE TABLE NewBook (
-	bookid		INTEGER PRIMARY KEY,
+	bookId		INTEGER,
     bookName	VARCHAR(255)  NOT NULL,
     publisher	VARCHAR(50)   UNIQUE,
     price		INTEGER		DEFAULT 10000 CHECK (price >= 1000),
@@ -51,7 +51,7 @@ CREATE TABLE NewBook (
 );
 
 -- 3-35 아래 속성의 NewCustomer 테이블을 생성하시오.
--- custid - INTEGER, 기본키alter
+-- custid - INTEGER, 기본키
 -- name - VARCHAR(100) NOT NULL
 -- address - VARCHAR(255) NOT NULL
 -- phone - VARCHAR(30) NOT NULL

@@ -22,4 +22,4 @@ SELECT * FROM Book;
 SELECT * FROM madang.Book;
 
 -- 프로시저 삭제
-DROP PROCEDURE 
+DROP PROCEDURE InsertBook;

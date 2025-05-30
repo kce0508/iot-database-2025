@@ -17,7 +17,7 @@ SELECT SUM(saleprice) AS '총 판매액'
 -- 4-15 3번 고객이 주문한 도서의 최고 금액보다 더 비싼 도서를 구입한 주문의
 -- 주문번호와 판매금액을 보이시오.
 -- 비교연산자만 쓰면 서브쿼리의 값이 단일값이 되어야 함(제약사항!)
-SELECT *
+SELECT orderid, saleprice
   FROM Orders
  WHERE saleprice > (SELECT MAX(saleprice)
 					  FROM Orders
@@ -31,6 +31,7 @@ SELECT *
  WHERE saleprice > ALL (SELECT saleprice
 					      FROM Orders
 					     WHERE custid = 3);                     
+						 
 -- 4-19 EXISTS 연산자를 사용하여 대한민국에 거주하는 고객에게 판매한 도서의 총판매액을 구하시오.
 -- EXISTS는 유일하게 서브쿼리에 * 을 쓸 수 있는 방법
 SELECT SUM(saleprice) AS '총 판매액'
@@ -60,6 +61,7 @@ SELECT name FROM Customer WHERE custid = 2;
 
 -- FROM절 서브쿼리, 인라인뷰
 -- 4-19 고객번호가 2이하인 고객의 판매액을 나타내시오(고객이름, 고객별 판매액 출력)
+-- 1. 이 테이블이 하나의 가상의 테이블이 됨
 SELECT custid
 	 , name
   FROM Customer

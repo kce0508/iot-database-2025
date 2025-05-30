@@ -10,7 +10,7 @@ BEGIN
 	/* 변수 선언 */
 	DECLARE  mycount INTEGER;
     -- 1. 데이터가 존재하는 수를 mycount 변수에 할당
-    SELECT COUNT(*) 
+    SELECT COUNT(*) INTO mycount
       FROM Book
 	 WHERE bookname LIKE CONCAT('%', mybookname, '%');
 	

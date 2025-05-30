@@ -25,7 +25,7 @@ SELECT CONCAT('Hello', 'MySQL', 'wOW');
 
 -- 4-5 굿스포츠에서 출판한 도서의 제목과 제목의 문자수, 바이트수를 구하시오.
 SELECT bookname AS '제목'
-	 , CHAR_LENGTH(bookname) AS '제목 문자수'	-- 글자 길이를 구할때
+	   , CHAR_LENGTH(bookname) AS '제목 문자수'	-- 글자 길이를 구할때
      , LENGTH(bookname) AS '제목 바이트수'		-- utf8에서 한글 한글자의 바이트수는 3bytes
   FROM Book
  WHERE publisher = '굿스포츠';
@@ -55,13 +55,13 @@ SELECT ADDDATE(SYSDATE(), INTERVAL 9 HOUR) AS '한국시간';
 
 -- 4-7 마당서점은 주문일부터 10일 후에 매출을 확정합니다. 각 주문의 확정일자를 구하시오.
 SELECT orderid AS '주문번호'
-	 , orderdate AS '주문일자'
+	   , orderdate AS '주문일자'
      , ADDDATE(orderdate, INTERVAL 10 DAY) AS '확정일자'
   FROM Orders;
   
 -- 추가, 나라별 날짜, 시간을 표현하는 포맷이 다름
 SELECT SYSDATE() AS '기본날짜/시간'
-	 , DATE_FORMAT(SYSDATE(), '%M/%d/%Y %H:%i:%s');
+	   , DATE_FORMAT(SYSDATE(), '%M/%d/%Y %H:%i:%s');
      
 -- 4-8 2024년 7월 7일에 주문 받은 도서의 주문번호, 주문일, 고객번호, 도서번호를 모두 나타내시오.
 -- 단, 주문일은 %Y-%m-%d 형태로 표시한다.
@@ -69,7 +69,7 @@ SELECT SYSDATE() AS '기본날짜/시간'
 -- %d = 일, %H = 16, %h = 04(오후도), %W = Monday, %w = 1(요일은 일요일 0)
 -- %p = AM/PM
 SELECT orderid AS '주문번호'
-	 , DATE_FORMAT(orderdate, '%Y/%b/%d') AS '주문일'
+	   , DATE_FORMAT(orderdate, '%Y/%b/%d') AS '주문일'
      , custid AS '고객번호'
      , bookid AS '도서번호'
   FROM Orders;
@@ -77,6 +77,10 @@ SELECT orderid AS '주문번호'
 -- DATEDIFF : D-day
 SELECT DATEDIFF(SYSDATE(), '2025-02-03');
 
+-- Formatting, 1000 단위마다, 넣기
+SELECT bookid
+	   , FORMAT(price, 0) AS price
+  FROM MyBook;
 
 -- NULL = Python None 동일. 모든 다른 프로그래밍 언어에서는 전부 NULL, NUL
 -- 추가. 금액이 NULL일때 발생되는 현상
@@ -86,14 +90,9 @@ SELECT price - 5000
  
 -- 핵심. 집계함수가 다 꼬임
 SELECT SUM(price) AS '합산은 그닥 문제없음'
-	 , AVG(price) AS '평균은 NULL이 빠져서 꼬임'
+	   , AVG(price) AS '평균은 NULL이 빠져서 꼬임'
      , COUNT(*) AS '모든 행의 갯수는 일치'
      , COUNT(price) AS 'NULL 값은 갯수에서 빠짐'
-  FROM MyBook;
-
--- Formatting, 1000 단위마다, 넣기
-SELECT bookid
-	 , FORMAT(price, 0) AS price
   FROM MyBook;
 
 -- NULL 값 확인. NULL은 비교연산자(=, >, <, <>, ...) 사용불가

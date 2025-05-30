@@ -27,6 +27,11 @@ UPDATE Bank SET
 	   balance = balance + 10000
 WHERE name = '김연아';
 
--- 트랜잭션 종료
+-- 박지성 계좌를 읽어온다
+SELECT * FROM Bank WHERE name = '박지성';
+-- 김연아 계좌 읽어온다
+SELECT * FROM Bank WHERE name = '김연아';
+
+-- 트랜잭션 종료. 두개 명령을 다 수행하는게 아님!
 COMMIT;
 ROLLBACK;

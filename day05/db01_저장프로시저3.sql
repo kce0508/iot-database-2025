@@ -9,3 +9,7 @@ BEGIN
    SELECT AVG(price) INTO Val
       FROM Book WHERE price IS NOT NULL;
 END;
+
+-- 프로시저를 실행할때는 Ctrl+Enter가 제대로 실행안됨. 마우스로 드래그하고 마우스로 번개 아이콘 클릭
+CALL AveragePrice(@myValue);
+SELECT @myValue;
